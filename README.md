@@ -7,7 +7,7 @@
 - ETS1574 **Yeabisira Yohannes** [yeabuti17](https://github.com/yeabuti17)
 - ETS1446/16 **Yeisrael Dawit** [YeisraelD](https://github.com/YeisraelD)
 
-# Cartify E-commerce Website - frontend
+# [Cartify E-commerce Website - frontend](https://github.com/Group5-secD/Cartify-e-commerce-website)
 
 **Cartify** is a frontend e-commerce simulation that demonstrates mastery of core web technologies like HTML, CSS, and JavaScript. The project focuses on implementing key JavaScript concepts such as functions, regular expressions, and prototype based object oriented programming all without relying on external frameworks or backend services.
 
