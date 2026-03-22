@@ -21,22 +21,18 @@ require_once "../../config/database.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // get data from form
     $email = $_POST["email"];
     $password = $_POST["password"];
-
-    // connect to database
+    
     $db = new Database();
     $conn = $db->connect();
-
-    // find user
+    
     $sql = "SELECT * FROM users WHERE email = ?";
     $stmt = $conn->prepare($sql);
     $stmt->execute([$email]);
 
     $user = $stmt->fetch();
 
-    // check user
     if ($user) {
 
         // check password
