@@ -1,7 +1,8 @@
 <?php
 session_start();
 
-function requireLogin() {
+function requireLogin()
+{
     if (!isset($_SESSION['user_id'])) {
         header('Content-Type: application/json');
         http_response_code(401);
@@ -10,7 +11,8 @@ function requireLogin() {
     }
 }
 
-function getLoggedInUserId() {
+function getLoggedInUserId()
+{
     return $_SESSION['user_id'] ?? null;
 }
 ?>

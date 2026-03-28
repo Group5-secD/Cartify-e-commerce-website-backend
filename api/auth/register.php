@@ -65,13 +65,13 @@ if (!empty($_FILES['profile_picture']['name'])) {
         echo json_encode(["error" => "Failed to upload profile picture. Ensure it is a valid image."]);
         exit;
     }
-    
+
     // uploadProfile moves it to Profiles/username.ext
     // Let's determine the file extension to save the path
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
     $mimeType = finfo_file($finfo, $_FILES['profile_picture']["tmp_name"]);
     $fileExt = strtolower(end(explode("/", $mimeType)));
-    
+
     $profilePath = "Profiles/" . $username . "." . $fileExt;
 }
 
@@ -94,7 +94,8 @@ try {
         ]
     ]);
 
-} catch (PDOException $e) {
+}
+catch (PDOException $e) {
     http_response_code(500);
     echo json_encode([
         "error" => "Something went wrong: " . $e->getMessage()
