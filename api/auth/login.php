@@ -1,19 +1,13 @@
 <?php
-/*require_once __DIR__ . '/../../config/cors.php';
-session_start();
-
+/*require_once __DIR__ . '/../../config/cors.php'; session_start();
+ 
 header('Content-Type: application/json');
-
-// This is a dummy login for testing session logic.
-// In a real app, you would verify credentials against the database.
-$_SESSION['user_id'] = 1; 
-$_SESSION['username'] = 'testuser';
-
+ 
+// This is a dummy login for testing session logic. // In a real app, you would verify credentials against the database. $_SESSION['user_id'] = 1;  $_SESSION['username'] = 'testuser';
+ 
 echo json_encode([
-    'message' => 'Logged in successfully (Mock)',
-    'user_id' => $_SESSION['user_id']
-]); 
-*/
+ 'message' => 'Logged in successfully (Mock)',
+ 'user_id' => $_SESSION['user_id'] ]);  */
 require_once __DIR__ . '/../../config/cors.php';
 session_start();
 header("Content-Type: application/json");
@@ -26,10 +20,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = json_decode(file_get_contents("php://input"), true);
     $email = $_POST["email"] ?? $data["email"] ?? '';
     $password = $_POST["password"] ?? $data["password"] ?? '';
-    
+
+    // MOCK MODE: Bypass Database
+    $_SESSION["user_id"] = 1;
+    echo json_encode(["status" => "success", "message" => "Login successful (Mock)"]);
+    exit();
+
     $db = new Database();
     $conn = $db->connect();
-    
+
     $sql = "SELECT * FROM users WHERE email = ?";
     $stmt = $conn->prepare($sql);
     $stmt->execute([$email]);
@@ -49,14 +48,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "message" => "Login successful"
             ]);
 
-        } else {
+        }
+        else {
             echo json_encode([
                 "status" => "error",
                 "message" => "Wrong password"
             ]);
         }
 
-    } else {
+    }
+    else {
         echo json_encode([
             "status" => "error",
             "message" => "User not found"
