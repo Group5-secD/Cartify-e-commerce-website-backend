@@ -25,22 +25,26 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Validate username
     $res = $register->testUsername($username);
-    if ($res["status"] === "error") exit(json_encode($res));
+    if ($res["status"] === "error")
+        exit(json_encode($res));
 
     // Validate email
     $res = $register->testEmail($email);
-    if ($res["status"] === "error") exit(json_encode($res));
+    if ($res["status"] === "error")
+        exit(json_encode($res));
 
     // Validate password
     $res = $register->testPassword($password);
-    if ($res["status"] === "error") exit(json_encode($res));
+    if ($res["status"] === "error")
+        exit(json_encode($res));
 
     // Confirm password
     $res = $register->confirmPassword($password, $confirm);
-    if ($res["status"] === "error") exit(json_encode($res));
+    if ($res["status"] === "error")
+        exit(json_encode($res));
 
     // Register user
-    $result = $register->registerUser($username, $password, $email, $upload["path"]);
+    $result = $register->registerUser($username, $password, $email);
 
     if ($result["status"] === "error") {
         exit(json_encode($result));
