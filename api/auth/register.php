@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $user_id = $result["user_id"];
 
     // Upload image if exists
-    if (!$file === null) {
+    if ($file !== null) {
         $upload = $register->uploadProfile($file, $user_id);
 
         if ($upload["status"] === "error") {

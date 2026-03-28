@@ -171,8 +171,8 @@ class Register {
         $path = $folder . "/" . $fileName;
 
         move_uploaded_file($image["tmp_name"], $path);
-        $stmt = $this->pdo->prepare("UPDATE users SET profilePicture = :profilePicture WHERE id = :user_id");
-        $stmt->execute([":profilePicture" => $path, ":user_id" => $user_id]);
+        $stmt = $this->pdo->prepare("UPDATE users SET profilePicture = :pic WHERE id = :id");
+        $stmt->execute([":pic" => $path, ":id" => $user_id]);
 
         return ["status" => "success", "path" => $path];
     }
