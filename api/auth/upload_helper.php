@@ -1,31 +1,32 @@
-<?php 
+<?php
 
-    function uploadProfile($username, $image) {
+function uploadProfile($username, $image)
+{
 
-        $allowedExtensions = ["jpg", "jpeg", "png", "gif", "webp"];
+    $allowedExtensions = ["jpg", "jpeg", "png", "gif", "webp"];
 
-        if($image["error"] === 0) {
-            
-            $finfo = finfo_open(FILEINFO_MIME_TYPE);
-            $mimeType = finfo_file($finfo, $image["tmp_name"]);
+    if ($image["error"] === 0) {
 
-            $fileExt =strtolower(end(explode("/", $mimeType)));
-            $tempLocation = $image["tmp_name"];
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mimeType = finfo_file($finfo, $image["tmp_name"]);
 
-            if(!in_array($fileExt, $allowedExtensions)) {
-                return "error";
-            } 
+        $fileExt = strtolower(end(explode("/", $mimeType)));
+        $tempLocation = $image["tmp_name"];
 
-            $folder = "Profiles";
+        if (!in_array($fileExt, $allowedExtensions)) {
+            return "error";
+        }
 
-            if (!is_dir($folder)) {
-                mkdir($folder, 0777, true); 
-            }
+        $folder = "Profiles";
 
-            $destinationDirectory = $folder."/".$username.".".$fileExt;
-            move_uploaded_file($tempLocation, $destinationDirectory);
+        if (!is_dir($folder)) {
+            mkdir($folder, 0777, true);
+        }
 
-            return "success";
-        }   
+        $destinationDirectory = $folder . "/" . $username . "." . $fileExt;
+        move_uploaded_file($tempLocation, $destinationDirectory);
+
+        return "success";
     }
+}
 ?>
