@@ -22,8 +22,10 @@ require_once __DIR__ . "/../../config/Database.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $email = $_POST["email"];
-    $password = $_POST["password"];
+    // Read JSON payload if frontend sends json
+    $data = json_decode(file_get_contents("php://input"), true);
+    $email = $_POST["email"] ?? $data["email"] ?? '';
+    $password = $_POST["password"] ?? $data["password"] ?? '';
     
     $db = new Database();
     $conn = $db->connect();
