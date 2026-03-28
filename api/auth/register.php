@@ -1,45 +1,64 @@
 <?php
 
-//  HTTP Headers setup
+// CORS headers
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
-
-require_once 'upload_helper.php';
-require_once '../../config/Database.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
 }
 
-if($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Assigned person do validation and other things here 
+require_once "Register.php";
 
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    if(isset($_POST["username"])) {
+    $username = htmlspecialchars(trim($_POST['username'])) ?? null;
+    $email = $_POST["email"] ?? null;
+    $password = $_POST["password"] ?? null;
+    $confirm = $_POST["confirm-password"] ?? null;
+    $file = $_FILES["profile-image"] ?? null;
 
-        $username = $_POST["username"];
-        $file = $_FILES["profile-image"];
+    $register = new Register();
 
-        $imageUploadingResult = uploadProfile($username, $file);
-        if($imageUploadingResult === "error") {
-            echo json_encode([
-                "status" => "error", 
-                "field" => "profile-image", 
-                "message" => "unsupported file"
-            ]);
+    // Validate username
+    $res = $register->testUsername($username);
+    if ($res["status"] === "error") exit(json_encode($res));
 
-            exit();
-        } else {
+    // Validate email
+    $res = $register->testEmail($email);
+    if ($res["status"] === "error") exit(json_encode($res));
 
-            echo json_encode([
-                    "status" => "success", 
-                    "field" => "profile-image", 
-                    "message" => "Profile image uploaded successfully"
-                ]);
-            
+    // Validate password
+    $res = $register->testPassword($password);
+    if ($res["status"] === "error") exit(json_encode($res));
+
+    // Confirm password
+    $res = $register->confirmPassword($password, $confirm);
+    if ($res["status"] === "error") exit(json_encode($res));
+
+    // Register user
+    $result = $register->registerUser($username, $password, $email, $upload["path"]);
+
+    if ($result["status"] === "error") {
+        exit(json_encode($result));
+    }
+
+    $user_id = $result["user_id"];
+
+    // Upload image if exists
+    if (!$file === null) {
+        $upload = $register->uploadProfile($file, $user_id);
+
+        if ($upload["status"] === "error") {
+            exit(json_encode($upload));
         }
     }
+
+    echo json_encode([
+        "status" => "success",
+        "message" => "User registered successfully"
+    ]);
 }
