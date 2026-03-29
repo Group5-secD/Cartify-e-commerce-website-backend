@@ -1,21 +1,16 @@
 <?php
-// Since we are using Live Server for the frontend, we need to allow port 5501.
-$allowed_origins = [
-    "http://localhost:3000",
-    "http://127.0.0.1:5501",
-    "http://localhost:5501",
-    "http://127.0.0.1:5500",
-    "http://localhost:5500"
-];
+// Get the origin of the request
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
 
-if (in_array($origin, $allowed_origins)) {
+// Just for local development: Allow any localhost or 127.0.0.1 port
+if (str_contains($origin, 'localhost') || str_contains($origin, '127.0.0.1')) {
     header("Access-Control-Allow-Origin: $origin");
 }
 
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
+header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, Origin, Accept");
 header("Access-Control-Allow-Credentials: true");
+header("Vary: Origin");
 
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     http_response_code(200);

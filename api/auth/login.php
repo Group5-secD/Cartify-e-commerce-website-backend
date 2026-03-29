@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit();
 
     $db = new Database();
-    $conn = $db->connect();
+    $conn = $db->getConnection();
 
     $sql = "SELECT * FROM users WHERE email = ?";
     $stmt = $conn->prepare($sql);
