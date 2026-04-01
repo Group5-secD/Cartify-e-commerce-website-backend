@@ -5,11 +5,24 @@
  echo json_encode([
  'message' => 'Logged in successfully (Mock)',
  'user_id' => $_SESSION['user_id'] ]);  */
-require_once __DIR__ . '/../../config/cors.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+header('Content-Type: application/json'); // tell browser this is JSON
+
+// This is just for testing your PHP code
+$data = [
+    "status" => "success",
+    "message" => "Your code is running!"
+];
+
+echo json_encode($data); // output JSON
+
+require_once(__DIR__ . '/../config/cors.php');
 session_start();
 header("Content-Type: application/json");
 
-require_once __DIR__ . "/../../config/Database.php";
+require_once(__DIR__ . '/../config/Database.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
