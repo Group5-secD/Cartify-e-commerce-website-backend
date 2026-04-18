@@ -18,11 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"] ?? $data["email"] ?? '';
     $password = $_POST["password"] ?? $data["password"] ?? '';
 
-    // MOCK MODE: Bypass Database
-    $_SESSION["user_id"] = 1;
-    echo json_encode(["status" => "success", "message" => "Login successful (Mock)"]);
-    exit();
-
+    // Mock mode removed, using real database connection below
     $db = new Database();
     $conn = $db->getConnection();
 
