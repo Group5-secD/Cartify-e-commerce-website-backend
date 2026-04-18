@@ -4,7 +4,7 @@ class Database {
     private $host = "127.0.0.1";
     private $username = "root";
     private $password = "";
-    private $dbname = "Cartify-e-commerce-website-database";
+    private $dbname = "cartify_db";
     private $pdo;
 
     public function __construct(){ 
