@@ -35,6 +35,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // create session
             $_SESSION["user_id"] = $user["id"];
+            $_SESSION["username"] = $user["username"];
+            $_SESSION["profile_picture"] = $user["profilePicture"];
 
             echo json_encode([
                 "status" => "success",

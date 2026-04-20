@@ -6,7 +6,8 @@ if (isset($_SESSION['user_id'])) {
     echo json_encode([
         'logged_in' => true,
         'user_id' => $_SESSION['user_id'],
-        'username' => $_SESSION['username'] ?? null
+        'username' => $_SESSION['username'] ?? 'User',
+        'profile_picture' => $_SESSION['profile_picture'] ?? null
     ]);
 }
 else {
