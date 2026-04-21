@@ -7,7 +7,7 @@ class Register
 {
     private $pdo;
 
-    private $passwordRegex = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/";
+    private $passwordRegex = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9\s]).{8,}$/";
     private $emailRegex = "/^[^\s@]+@[^\s@]+\.[^\s@]+$/";
     private $usernameRegex = "/^[a-zA-Z0-9]{3,16}$/";
 
