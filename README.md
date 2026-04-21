@@ -67,3 +67,4 @@ Clone the repository:
 ```bash
 git clone https://github.com/Group5-secD/Cartify-ecommerce-website.git
 ```
+## Database design doc: https://docs.google.com/document/d/1uV6kE3UKby14Fyu3tN73xbk_fQGmR6iqvCJcxynK-kY/edit?usp=sharing
